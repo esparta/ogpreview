@@ -18,9 +18,11 @@ RSpec.describe 'Root', type: :request do
     end
   end
 
-  describe 'POST /status' do
+  describe 'GET /status' do
     it 'return http success' do
-      get '/status'
+
+      url = Url.create(uri: 'http://example.com', acknowledge_id: SecureRandom.hex)
+      get '/status', params: {ack: url.acknowledge_id }
       expect(response).to have_http_status(:success)
     end
   end

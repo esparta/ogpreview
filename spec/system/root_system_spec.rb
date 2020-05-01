@@ -11,7 +11,8 @@ RSpec.describe 'Root', type: :system do
   end
 
   it 'status' do
-    visit '/status'
+    url = Url.create(uri: 'http://example.com', acknowledge_id: SecureRandom.hex)
+    visit "/status?ack=#{url.acknowledge_id}"
     expect(page.response_headers).to be_truthy
   end
 
