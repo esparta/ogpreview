@@ -8,7 +8,7 @@ class PreviewController < ApplicationController
   end
 
   def create
-    url_contract = UrlContract.new.call(url_params)
+    url_contract = UrlContracts::Input.new.call(url_params)
     if url_contract.success?
       ack = SecureRandom.hex
       url = { user_id: cookies[:user_id],

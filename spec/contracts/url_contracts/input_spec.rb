@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe UrlContract do
+RSpec.describe UrlContracts::Input do
   subject do
     described_class.new.call(input)
   end
