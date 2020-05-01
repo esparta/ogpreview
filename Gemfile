@@ -27,6 +27,7 @@ gem 'http'
 gem 'down'
 
 # Validation library
+gem 'dry-monads'
 gem 'dry-validation', '~> 1.5'
 
 # OpenGraph
