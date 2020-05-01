@@ -10,10 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_01_094741) do
+ActiveRecord::Schema.define(version: 2020_05_01_215427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "url_images", force: :cascade do |t|
+    t.bigint "url_id", null: false
+    t.string "uri"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["url_id"], name: "index_url_images_on_url_id"
+  end
 
   create_table "urls", force: :cascade do |t|
     t.string "uri", null: false
@@ -25,4 +33,5 @@ ActiveRecord::Schema.define(version: 2020_05_01_094741) do
     t.string "acknowledge_id", null: false
   end
 
+  add_foreign_key "url_images", "urls"
 end

@@ -8,4 +8,5 @@ class Url < ApplicationRecord
   #   user_id: string -> nullable
   #   started_at: datetime -> nullable
   #   finished_at: datetime -> nullable
+  has_many :url_images
 end
