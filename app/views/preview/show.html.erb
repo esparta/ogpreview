@@ -1,1 +1,7 @@
 <h1>Hello Previewer</h1>
+
+<%= form_with do %>
+  <%= label_tag(:url, 'URL') %>
+  <%= text_field_tag(:url) %>
+  <%= submit_tag('Preview') %>
+<% end %>
