@@ -3,22 +3,18 @@
 # Our main Controller
 class PreviewController < ApplicationController
   before_action :assign_user_id
+  before_action :url_contract
 
   def show
   end
 
   def create
-    url_contract = UrlContracts::Input.new.call(url_params)
-    if url_contract.success?
-      ack = SecureRandom.hex
-      url = { user_id: cookies[:user_id],
-              uri: url_contract.to_h[:url],
-              acknowledge_id: ack }
-      Url.create!(url)
+    if @url_contract.success?
+      new_url = Url.create!(persisted_hash)
 
-      render json: { ack: ack }
+      render json: { ack: new_url.acknowledge_id }
     else
-      render json: { errors: url_contract.errors.to_h }, status: 400
+      render json: { errors: @url_contract.errors.to_h }, status: 400
     end
   end
 
@@ -32,5 +28,16 @@ class PreviewController < ApplicationController
 
   def url_params
     params.permit(:url, :authenticity_token, :commit).to_h.symbolize_keys
+  end
+
+  def persisted_hash
+    { user_id: cookies[:user_id],
+      uri: @url_contract.to_h[:url],
+      acknowledge_id: SecureRandom.hex,
+      started_at: DateTime.now }
+  end
+
+  def url_contract
+    @url_contract ||= UrlContracts::Input.new.call(url_params)
   end
 end
