@@ -13,7 +13,8 @@ RSpec.describe 'Root', type: :request do
   describe 'POST /' do
     it 'return http success' do
       post '/'
-      expect(response).to have_http_status(:success)
+      # Should fail since we are not sending the url param
+      expect(response).to have_http_status(:bad_request)
     end
   end
 end

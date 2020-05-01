@@ -8,7 +8,12 @@ class PreviewController < ApplicationController
   end
 
   def create
-    render json: { ack: SecureRandom.hex }
+    url_contract = UrlContract.new.call(url_params)
+    if url_contract.success?
+      render json: { ack: SecureRandom.hex }
+    else
+      render json: { errors: url_contract.errors.to_h }, status: 400
+    end
   end
 
   private
@@ -17,5 +22,9 @@ class PreviewController < ApplicationController
     return if cookies[:user_id]
 
     cookies[:user_id] = SecureRandom.hex
+  end
+
+  def url_params
+    params.permit(:url, :authenticity_token, :commit).to_h.symbolize_keys
   end
 end
