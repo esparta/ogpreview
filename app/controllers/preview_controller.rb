@@ -10,9 +10,11 @@ class PreviewController < ApplicationController
 
   def create
     if @url_contract.success?
-      new_url = Url.create!(persisted_hash)
+      url = Url.find_or_initialize_by(search_hash) do |new|
+        new.update(persisted_hash)
+      end
 
-      render json: { ack: new_url.acknowledge_id }
+      render json: { ack: url.acknowledge_id }
     else
       render json: { errors: @url_contract.errors.to_h }, status: 400
     end
@@ -30,10 +32,13 @@ class PreviewController < ApplicationController
     params.permit(:url, :authenticity_token, :commit).to_h.symbolize_keys
   end
 
-  def persisted_hash
+  def search_hash
     { user_id: cookies[:user_id],
-      uri: @url_contract.to_h[:url],
-      acknowledge_id: SecureRandom.hex,
+      uri: @url_contract.to_h[:url] }
+  end
+
+  def persisted_hash
+    { acknowledge_id: SecureRandom.hex,
       started_at: DateTime.now }
   end
 
