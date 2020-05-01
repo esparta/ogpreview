@@ -5,9 +5,6 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.3'
 
-# Validation library
-gem 'dry-validation', '~> 1.5'
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', github: 'rails/rails'
 # Postgresql
@@ -22,6 +19,18 @@ gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 4.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
+
+# HTTP client
+gem 'http'
+
+# Download library
+gem 'down'
+
+# Validation library
+gem 'dry-validation', '~> 1.5'
+
+# OpenGraph
+gem 'opengraph_parser'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
