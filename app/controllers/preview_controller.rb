@@ -6,6 +6,6 @@ class PreviewController < ApplicationController
   end
 
   def create
-    render json: { data: :oks }
+    render json: { ack: SecureRandom.hex }
   end
 end
