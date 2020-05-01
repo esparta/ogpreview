@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_01_062539) do
+ActiveRecord::Schema.define(version: 2020_05_01_094741) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,7 +18,6 @@ ActiveRecord::Schema.define(version: 2020_05_01_062539) do
   create_table "urls", force: :cascade do |t|
     t.string "uri", null: false
     t.string "user_id"
-    t.string "image_uri"
     t.datetime "started_at"
     t.string "finished_at"
     t.datetime "created_at", precision: 6, null: false
