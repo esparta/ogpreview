@@ -13,7 +13,7 @@ RSpec.describe 'Root', type: :request do
   describe 'POST /' do
     it 'return http success' do
       post '/'
-      expect(response).to have_http_status(:redirect)
+      expect(response).to have_http_status(:success)
     end
   end
 end

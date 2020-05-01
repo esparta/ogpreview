@@ -6,7 +6,6 @@ class PreviewController < ApplicationController
   end
 
   def create
-    flash[:info] = 'Preview has been submitted'
-    redirect_to root_path
+    render json: { data: :oks }
   end
 end

@@ -1,7 +1,12 @@
 <h1>Hello Previewer</h1>
 
-<%= form_with do %>
+<%= form_with(id: 'new-preview') do %>
   <%= label_tag(:url, 'URL') %>
   <%= text_field_tag(:url) %>
   <%= submit_tag('Preview') %>
 <% end %>
+
+<div id="responses">
+</div>
+
+<%= javascript_pack_tag 'preview/show.js' %>
