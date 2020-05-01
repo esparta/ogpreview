@@ -4,7 +4,7 @@ window.addEventListener('load', () => {
     var theDiv = document.querySelector('#responses');
     const [data, _status, _xhr] = event.detail;
     const message = 'Preview has been submitted';
-
+    theDiv.dataset.id = data['ack']
     theDiv.insertAdjacentHTML('beforeend', message);
   });
 
