@@ -10,4 +10,12 @@ RSpec.describe Url, type: :model do
       end.to raise_exception(ActiveRecord::NotNullViolation)
     end
   end
+
+  context 'Acknowled_Id' do
+    it 'is not null' do
+      expect do
+        Url.create!(user_id: SecureRandom.hex, uri: 'example.com')
+      end.to raise_exception(ActiveRecord::NotNullViolation)
+    end
+  end
 end
