@@ -10,6 +10,11 @@ RSpec.describe 'Root', type: :system do
     expect(page).to have_text('Hello Previewer')
   end
 
+  it 'status' do
+    visit '/status'
+    expect(page.response_headers).to be_truthy
+  end
+
   context 'Return an acknowledge ID' do
     let(:acknowledge) { '0a5692e33d9635240d377bbe1ab082c6' }
     let(:website) { 'example.com' }

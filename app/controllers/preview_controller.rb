@@ -8,6 +8,10 @@ class PreviewController < ApplicationController
   def show
   end
 
+  def status
+    head :ok
+  end
+
   def create
     if @url_contract.success?
       url = Url.find_or_initialize_by(search_hash) do |new|
