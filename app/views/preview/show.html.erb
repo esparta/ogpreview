@@ -1,12 +1,27 @@
-<h1>Hello Previewer</h1>
-
-<%= form_with(id: 'new-preview') do %>
-  <%= label_tag(:url, 'URL') %>
-  <%= text_field_tag(:url) %>
-  <%= submit_tag('Preview') %>
-<% end %>
-
-<div id="responses">
+<div class="jumbotron">
+  <h1 class="display-3">OpenGraph Previewer</h1>
 </div>
-
+<div class="container">
+  <div class="row">
+    <%= form_with(id: 'new-preview') do %>
+      <div class="form-group">
+        <%= label_tag(:url, 'Introduce your URL') %>
+        <%= text_field(:opengraph, :url, size: 100, class: 'form-control') %>
+      </div>
+      <%= submit_tag('Preview', class: 'btn btn-primary' ) %>
+    <% end %>
+  </div>
+  <br/>
+  <div class="invisible" id="spinner-section">
+    <div class="row">
+      <div class="spinner-border" role="status">
+          <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div id="responses">
+    </div>
+  </div>
+</div>
 <%= javascript_pack_tag 'preview/show.js' %>

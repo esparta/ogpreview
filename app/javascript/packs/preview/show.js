@@ -26,9 +26,11 @@ window.addEventListener('load', () => {
   element.addEventListener('ajax:success', (event) => {
     var theDiv = document.querySelector('#responses');
     const [data, _status, _xhr] = event.detail;
-    console.log(data['ack'])
     theDiv.dataset.id = data['ack']
 
+    removeImage(theDiv);
+    var theSpinner = document.querySelector('#spinner-section');
+    theSpinner.setAttribute('class', 'visible');
     poll(function() {
       fetch('/status?ack='+data['ack'])
         .then(handleError)
@@ -37,12 +39,10 @@ window.addEventListener('load', () => {
           switch(result['status']) {
             case 'error':
               delete theDiv.dataset.id;
+              break;
             case 'ready':
-              const oldImage = theDiv.querySelector('#image-result');
               delete theDiv.dataset.id;
-              if (oldImage){
-                theDiv.removeChild(oldImage);
-              }
+              removeImage(theDiv);
               theDiv.appendChild(createImage(result['images'][0]));
           }
 
@@ -50,6 +50,7 @@ window.addEventListener('load', () => {
         .catch(error => console.log(error) );
       return !theDiv.dataset.id
     }, 5000, 250).then(function() {
+      theSpinner.setAttribute('class', 'invisible');
         console.log('Done');
     }).catch(function() {
           console.log('TimedOut');
@@ -72,9 +73,20 @@ function handleError(response){
   return response;
 }
 
+function removeImage(theDiv){
+  const oldImage = theDiv.querySelector('#image-result');
+  if (oldImage){
+    theDiv.removeChild(oldImage);
+  }
+}
+
 function createImage(src) {
+  var theFigure = document.createElement('figure');
+  theFigure.setAttribute('class', 'figure');
+  theFigure.setAttribute('id', 'image-result');
   var theImage = document.createElement('img');
   theImage.setAttribute('src', src);
-  theImage.setAttribute('id', 'image-result');
-  return theImage;
+  theImage.setAttribute('class', 'figure-img img-fluid rounded');
+  theFigure.appendChild(theImage);
+  return theFigure;
 }

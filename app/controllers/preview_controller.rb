@@ -43,7 +43,7 @@ class PreviewController < ApplicationController
   end
 
   def url_params
-    params.permit(:url, :authenticity_token, :commit).to_h.symbolize_keys
+    params.require(:opengraph).permit(:url).to_h.symbolize_keys
   end
 
   def search_hash
