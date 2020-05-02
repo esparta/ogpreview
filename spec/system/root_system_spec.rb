@@ -17,16 +17,14 @@ RSpec.describe 'Root', type: :system do
   end
 
   context 'Return an acknowledge ID' do
-    let(:acknowledge) { '0a5692e33d9635240d377bbe1ab082c6' }
     let(:website) { 'example.com' }
     it 'is able to post the URL' do
-      allow(SecureRandom).to receive(:hex) { acknowledge }
       visit '/'
       fill_in 'url', with: website
       click_button 'Preview'
       expect(
         JSON.parse(page.body)
-      ).to match('ack' => acknowledge)
+      ).to match('ack' => an_instance_of(String))
     end
   end
 end

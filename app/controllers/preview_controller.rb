@@ -9,29 +9,19 @@ class PreviewController < ApplicationController
   end
 
   def status
-    ack = params[:ack]
-    url = Url.find_by!(acknowledge_id: ack)
-
-    render(json: { images: url.url_images.map(&:uri) })
+    url = Url.find_by(acknowledge_id: params[:ack])
+    if url
+      render(json: { images: url.url_images.map(&:uri) })
+    else
+      render(json: { status: :not_ready })
+    end
   end
 
   def create
     if @url_contract.success?
-      url = Url.find_or_initialize_by(search_hash)
+      url = Url.find_by(uri: @url_contract[:url])
+      ack = url&.acknowledge_id || PreviewerJob.perform_later(search_hash)
 
-      ack = url.acknowledge_id || SecureRandom.hex
-
-      if url.new_record?
-        # If new record. Save it
-        url.update(acknowledge_id: ack, started_at: DateTime.now)
-        og = Downloader::OpenGraph.get(url.uri)
-        if og.success?
-          # and also their images
-          og.value!.images.each do |image|
-            url.url_images.create(uri: image)
-          end
-        end
-      end
       render(json: { ack: ack })
     else
       # Bad URL
