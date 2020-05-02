@@ -16,8 +16,13 @@ class PreviewerJob < ApplicationJob
 
     # Create their images
     url.downloading!
-    og.value!.images.each do |image|
-      url.url_images.create(uri: image)
+    og.value!.images.each do |image_url|
+      url.url_images.create(uri: image_url).tap do |new_image|
+        new_image.image.attach(
+          io: Downloader.get(image_url).value!,
+          filename: 'image.jpg'
+        )
+      end
     end
     url.ready!
   end

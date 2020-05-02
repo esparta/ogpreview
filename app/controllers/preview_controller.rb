@@ -13,7 +13,10 @@ class PreviewController < ApplicationController
     render(json: { status: :enqueued }) and return unless url
 
     if url.ready?
-      render(json: { status: :ready, images: url.url_images.map(&:uri) })
+      images = url.url_images.map do |ui|
+        url_for(ui.image)
+      end
+      render json: { status: :ready, images: images }
     else
       render json: { status: url.status }
     end

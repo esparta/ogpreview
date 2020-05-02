@@ -15,7 +15,7 @@ class Downloader
 
   def get(src)
     Try do
-      Down::Http.open(src).read
+      Down::Http.open(src)
     end.to_result
   end
 end
