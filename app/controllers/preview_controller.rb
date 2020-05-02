@@ -10,11 +10,12 @@ class PreviewController < ApplicationController
 
   def status
     url = Url.find_by(acknowledge_id: params[:ack])
-    images = url&.url_images
-    if images&.any?
+    render(json: { status: :enqueued }) and return unless url
+
+    if url.ready?
       render(json: { status: :ready, images: url.url_images.map(&:uri) })
     else
-      render json: { status: :not_ready }
+      render json: { status: url.status }
     end
   end
 

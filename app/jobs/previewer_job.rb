@@ -10,12 +10,15 @@ class PreviewerJob < ApplicationJob
       uri: uri, user_id: user_id,
       acknowledge_id: job_id, started_at: DateTime.now
     )
+    url.parsing!
     og = Downloader::OpenGraph.get(url.uri)
     return if og.failure?
 
     # Create their images
+    url.downloading!
     og.value!.images.each do |image|
       url.url_images.create(uri: image)
     end
+    url.ready!
   end
 end
