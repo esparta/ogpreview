@@ -10,17 +10,18 @@ class PreviewController < ApplicationController
 
   def status
     url = Url.find_by(acknowledge_id: params[:ack])
-    if url
-      render(json: { images: url.url_images.map(&:uri) })
+    images = url&.url_images
+    if images&.any?
+      render(json: { status: :ready, images: url.url_images.map(&:uri) })
     else
-      render(json: { status: :not_ready })
+      render json: { status: :not_ready }
     end
   end
 
   def create
     if @url_contract.success?
       url = Url.find_by(uri: @url_contract[:url])
-      ack = url&.acknowledge_id || PreviewerJob.perform_later(search_hash)
+      ack = url&.acknowledge_id || PreviewerJob.perform_later(search_hash).job_id
 
       render(json: { ack: ack })
     else
