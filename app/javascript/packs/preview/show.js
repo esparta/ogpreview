@@ -34,13 +34,16 @@ window.addEventListener('load', () => {
         .then(handleError)
         .then(response => response.json())
         .then(result => {
-          if (result['status'] == 'ready'){
-            const oldImage = theDiv.querySelector('#image-result');
-            delete theDiv.dataset.id;
-            if (oldImage){
-              theDiv.removeChild(oldImage);
-            }
-            theDiv.appendChild(createImage(result['images'][0]));
+          switch(result['status']) {
+            case 'error':
+              delete theDiv.dataset.id;
+            case 'ready':
+              const oldImage = theDiv.querySelector('#image-result');
+              delete theDiv.dataset.id;
+              if (oldImage){
+                theDiv.removeChild(oldImage);
+              }
+              theDiv.appendChild(createImage(result['images'][0]));
           }
 
         })

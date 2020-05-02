@@ -6,24 +6,37 @@ class PreviewerJob < ApplicationJob
   queue_as :default
 
   def perform(uri:, user_id:)
-    url = Url.create(
-      uri: uri, user_id: user_id,
-      acknowledge_id: job_id, started_at: DateTime.now
-    )
-    url.parsing!
-    og = Downloader::OpenGraph.get(url.uri)
-    return if og.failure?
+    Url.transaction do
+      url = Url.create(
+        uri: uri, user_id: user_id,
+        acknowledge_id: job_id, started_at: DateTime.now
+      )
+      og = Downloader::OpenGraph.get(url.uri)
+      if og.failure?
+        url.error!
+      else
+        url.parsing!
 
-    # Create their images
-    url.downloading!
-    og.value!.images.each do |image_url|
-      url.url_images.create(uri: image_url).tap do |new_image|
-        new_image.image.attach(
-          io: Downloader.get(image_url).value!,
-          filename: 'image.jpg'
-        )
+        # Create their images
+        url.downloading!
+        results = og.value!.images.map do |image_url|
+          image = Downloader.get(image_url)
+          if image.success?
+            url.url_images.create(uri: image_url).tap do |new_image|
+              image = Downloader.get(image_url)
+              if image.success?
+                new_image.image.attach(
+                  io: image.value!,
+                  filename: 'image.jpg'
+                )
+              end
+            end
+          else
+            false
+          end
+        end
+        results.all? ? url.ready! : url.error!
       end
     end
-    url.ready!
   end
 end
