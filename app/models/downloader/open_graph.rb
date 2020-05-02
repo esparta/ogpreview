@@ -5,16 +5,23 @@ class Downloader
     class << self
       include Dry::Monads[:try, :result]
       def get(src)
-        downloader = Downloader.get(src)
-        get_opengraph(downloader)
+        checker = head(src)
+        get_opengraph(checker)
       end
 
       private
 
-      def get_opengraph(downloader)
+      def head(src)
         Try do
-          ::OpenGraph.new(downloader.value!)
-        end.to_result
+          HTTP.head(src)
+          src
+        end
+      end
+
+      def get_opengraph(checker)
+        Try do
+          ::OpenGraph.new(checker.value!)
+        end
       end
     end
   end

@@ -7,18 +7,11 @@ RSpec.describe Downloader::OpenGraph do
     described_class.get(src)
   end
   let(:src) { 'http://example.com/get' }
-  let(:img) do
-    'https://example.com/img.jpg'
-  end
+  let(:img) { 'https://example.com/img.jpg' }
+
+  let(:head) { OpenStruct.new(location: src) }
   it do
-    allow(Downloader).to receive(:get) do
-      Dry::Monads::Success(
-        '
-          <html>HEAD</html>
-          <body><img src="https://example.com/img.jpg"/>
-        '
-      )
-    end
+    allow(HTTP).to receive(:head) { head }
     allow(::OpenGraph).to receive(:new) do
       OpenStruct.new(images: [img])
     end
