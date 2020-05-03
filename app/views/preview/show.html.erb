@@ -5,13 +5,13 @@
   <div class="row">
     <%= form_with(id: 'new-preview') do %>
       <div class="form-group">
-        <%= label_tag(:url, 'Introduce your URL') %>
-        <%= text_field(:opengraph, :url, size: 100, class: 'form-control') %>
+        <%= text_field(:opengraph, :url,
+                       size: 100, class: 'form-control',
+                       id: 'url-text', placeholder: "Introduce your URL") %>
       </div>
       <%= submit_tag('Preview', class: 'btn btn-primary' ) %>
     <% end %>
   </div>
-  <br/>
   <div class="invisible" id="spinner-section">
     <div class="row">
       <div class="spinner-border" role="status">
@@ -21,6 +21,13 @@
   </div>
   <div class="row">
     <div id="responses">
+    </div>
+  </div>
+  <div class="invisible" id="error-div">
+    <div class="row">
+      <div class="alert alert-danger" role="alert" id="errors">
+          A simple danger alert—check it out!
+      </div>
     </div>
   </div>
 </div>

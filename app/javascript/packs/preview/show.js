@@ -29,6 +29,7 @@ window.addEventListener('load', () => {
     theDiv.dataset.id = data['ack']
 
     removeImage(theDiv);
+    setErrorDiv('invisible');
     var theSpinner = document.querySelector('#spinner-section');
     theSpinner.setAttribute('class', 'visible');
     poll(function() {
@@ -39,6 +40,7 @@ window.addEventListener('load', () => {
           switch(result['status']) {
             case 'error':
               delete theDiv.dataset.id;
+              displayError('Error while processing OpenGraph');
               break;
             case 'ready':
               delete theDiv.dataset.id;
@@ -60,8 +62,9 @@ window.addEventListener('load', () => {
   element.addEventListener('ajax:error', () => {
     const [data, _status, _xhr] = event.detail;
     const errors = JSON.stringify(data['errors']);
-    var theDiv = document.querySelector('#responses');
-    theDiv.innerText = errors;
+    const responseDiv = document.querySelector('#responses');
+    removeImage(responseDiv);
+    displayError(errors);
   });
 });
 
@@ -71,6 +74,17 @@ function handleError(response){
     throw Error(response.statusText);
   }
   return response;
+}
+
+function displayError(message){
+  var theDiv = document.querySelector('#errors');
+  theDiv.innerText = 'An error has occur: ' + message;
+  setErrorDiv('visible');
+}
+
+function setErrorDiv(visibility){
+  var errorDiv = document.querySelector('#error-div');
+  errorDiv.setAttribute('class', visibility);
 }
 
 function removeImage(theDiv){
@@ -85,7 +99,13 @@ function createImage(src) {
   theFigure.setAttribute('class', 'figure');
   theFigure.setAttribute('id', 'image-result');
   var theImage = document.createElement('img');
-  theImage.setAttribute('src', src);
+  if (src) {
+    theImage.setAttribute('src', src);
+  }
+  else{
+    theImage.setAttribute('src', 'product_image_not_found.gif');
+  }
+
   theImage.setAttribute('class', 'figure-img img-fluid rounded');
   theFigure.appendChild(theImage);
   return theFigure;
