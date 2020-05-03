@@ -22,13 +22,13 @@ class Downloader
         Try do
           HTTP.head(src)
           src
-        end
+        end.to_result
       end
 
       def get_opengraph(checker)
         Try do
           ::OpenGraph.new(checker)
-        end
+        end.to_result
       end
     end
   end
