@@ -7,7 +7,7 @@ RSpec.describe 'Root', type: :system do
 
   it 'root' do
     visit '/'
-    expect(page).to have_text('Hello Previewer')
+    expect(page).to have_text('OpenGraph Previewer')
   end
 
   it 'status' do
@@ -20,7 +20,7 @@ RSpec.describe 'Root', type: :system do
     let(:website) { 'example.com' }
     it 'is able to post the URL' do
       visit '/'
-      fill_in 'url', with: website
+      fill_in 'url-text', with: website
       click_button 'Preview'
       expect(
         JSON.parse(page.body)

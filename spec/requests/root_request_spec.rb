@@ -12,8 +12,8 @@ RSpec.describe 'Root', type: :request do
 
   describe 'POST /' do
     it 'return http success' do
-      post '/'
-      # Should fail since we are not sending the url param
+      post '/', params: { opengraph: { url_text: 'uht' } }
+      # Should fail since we are sending wrong param
       expect(response).to have_http_status(:bad_request)
     end
   end

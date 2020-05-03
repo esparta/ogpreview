@@ -7,7 +7,7 @@ RSpec.describe PreviewController, type: :controller do
     context 'failing post' do
       let(:url) { 'nop' }
       it do
-        post :create, params: { url: url }
+        post :create, params: { opengraph: { url: url } }
         expect(response).to have_http_status(:bad_request)
         expect(
           JSON.parse(response.body)

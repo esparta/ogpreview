@@ -10,7 +10,7 @@ RSpec.describe PreviewController, type: :controller do
         Url.create!(uri: url, acknowledge_id: SecureRandom.hex)
         # Second post.
         # Should not create double entry
-        post :create, params: { url: url }
+        post :create, params: { opengraph: { url: url } }
         counting = Url.where(uri: url).count
         expect(counting).to eq(1)
       end
