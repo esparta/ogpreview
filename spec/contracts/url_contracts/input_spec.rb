@@ -12,7 +12,7 @@ RSpec.describe UrlContracts::Input do
 
   context 'requires an url' do
     context 'valid input' do
-      let(:value) { 'example.com' }
+      let(:value) { 'http://example.com' }
       it { is_expected.to be_success }
     end
 
@@ -47,7 +47,7 @@ RSpec.describe UrlContracts::Input do
         it { is_expected.to be_failure }
       end
       context 'more or equal than 4 is OK' do
-        let(:value) { 'localhost' }
+        let(:value) { 'http://localhost' }
         it { is_expected.to be_success }
       end
     end

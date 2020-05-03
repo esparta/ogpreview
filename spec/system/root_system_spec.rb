@@ -17,7 +17,7 @@ RSpec.describe 'Root', type: :system do
   end
 
   context 'Return an acknowledge ID' do
-    let(:website) { 'example.com' }
+    let(:website) { 'http://example.com' }
     it 'is able to post the URL' do
       visit '/'
       fill_in 'url-text', with: website
