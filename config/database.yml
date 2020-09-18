@@ -5,7 +5,6 @@ default: &default
   port: <%= ENV['DB_PORT'] || '5432'  %>
   username: <%= ENV['DB_USER'] || 'postgres' %>
   password: <%= ENV['DB_PASSWORD'] || 'postgres' %>
-  database: <%= ENV['DB_NAME'] || 'ogpreview' %>
   pool: 5
 
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
@@ -24,4 +23,4 @@ test:
 
 production:
   <<: *default
-  database: db/production.sqlite3
+  database: ogpreview_production
