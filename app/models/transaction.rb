@@ -25,11 +25,11 @@ class Transaction
     # Step 01 - Try to create the new URL
     def create_url(uri, user_id, job_id)
       Success(
-        Url.new(
+        Url.create!(
           uri: uri, user_id: user_id,
           acknowledge_id: job_id,
           started_at: DateTime.now
-        ).tap(&:save)
+        )
       )
     end
 
