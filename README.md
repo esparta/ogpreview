@@ -197,9 +197,9 @@ ready:
 
 ```json
 { "status": "ready",
-  images: ["http://localhost:3000/path_image1",
-           "http://localhost:3000/path_image2",
-           "http://localhost:3000/path_imagen"
+  "images": ["http://localhost:3000/path_image1",
+             "http://localhost:3000/path_image2",
+             "http://localhost:3000/path_imagen"
   ]
 }
 ```
