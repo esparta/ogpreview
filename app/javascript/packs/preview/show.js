@@ -32,6 +32,7 @@ window.addEventListener('load', () => {
     setErrorDiv('invisible');
     var theSpinner = document.querySelector('#spinner-section');
     theSpinner.setAttribute('class', 'visible');
+    var theMessage = document.querySelector('#message');
     poll(function() {
       fetch('/status?ack='+data['ack'])
         .then(handleError)
@@ -46,16 +47,18 @@ window.addEventListener('load', () => {
               delete theDiv.dataset.id;
               removeImage(theDiv);
               theDiv.appendChild(createImage(result['images'][0]));
+              break;
+            default:
+              theMessage.innerHTML = result['status'];
           }
-
         })
         .catch(error => console.log(error) );
       return !theDiv.dataset.id
     }, 5000, 250).then(function() {
       theSpinner.setAttribute('class', 'invisible');
-        console.log('Done');
+        theMessage.innerHTML = '';
     }).catch(function() {
-          console.log('TimedOut');
+        theMessage.innerHTML = 'Timed Out';
     });
   });
 

@@ -9,16 +9,27 @@
                        size: 100, class: 'form-control',
                        id: 'url-text', placeholder: "Introduce your URL") %>
       </div>
-      <%= submit_tag('Preview', class: 'btn btn-primary' ) %>
+      <div class="row">
+        <div class="col-sm">
+          <%= submit_tag('Preview', class: 'btn btn-primary' ) %>
+        </div>
+        <div class="col-sm">
+          <div class="invisible" id="spinner-section">
+            <div class="row">
+              <div class="spinner-border" role="status">
+                  <span class="sr-only">Loading...</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm">
+          <div id="message">
+          </div>
+        </div>
+      </div>
     <% end %>
   </div>
-  <div class="invisible" id="spinner-section">
-    <div class="row">
-      <div class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
-      </div>
-    </div>
-  </div>
+  <p/>
   <div class="row">
     <div id="responses">
     </div>
