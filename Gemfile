@@ -6,9 +6,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '2.6.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', github: 'rails/rails'
+gem 'rails', '6.1.4'
 # Postgresql
-gem 'pg'
+gem 'pg', '~> 1.2.3'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
@@ -27,11 +27,11 @@ gem 'http'
 gem 'down'
 
 # Validation library
-gem 'dry-monads'
+gem 'dry-monads', '~> 1.3.5'
 gem 'dry-validation', '~> 1.5'
 
 # OpenGraph
-gem 'opengraph_parser'
+gem 'opengraph_parser', '~> 0.2.3'
 
 gem 'bootstrap',  '~>4.3.1'
 # Use Redis adapter to run Action Cable in production
