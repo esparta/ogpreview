@@ -6,20 +6,50 @@ version: 2.1
 # See: https://circleci.com/docs/2.0/orb-intro/
 orbs:
   ruby: circleci/ruby@1.2.0
+  node: circleci/node@4.9.0
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   build:
     docker:
-      - image: cimg/ruby:2.7.5
+      - image: cimg/ruby:2.7.5-node
     executor: ruby/default
     steps:
       - checkout
       - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
       - run:
           name: Which bundler?
           command: bundle -v
+
+  test:
+    docker:
+      - image: cimg/ruby:2.7.5-node
+      - image: cimg/postgres:11.13
+        environment:
+          POSTGRES_USER: postgres
+          POSTGRES_DB: ogpreview_test
+          POSTGRES_PASSWORD: postgres
+    environment:
+      BUNDLE_JOBS: '4'
+      BUNDLE_RETRY: '3'
+      DB_HOST: 127.0.0.1
+      RAILS_ENV: test
+
+    steps:
+      - checkout
+      - ruby/install-deps
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: Database setup
+          command: bundle exec rails db:schema:load --trace
+      - ruby/rspec-test
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -27,3 +57,6 @@ workflows:
   build_and_test:
     jobs:
       - build
+      - test:
+          requires:
+            - build
