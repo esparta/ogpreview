@@ -6,11 +6,10 @@ services:
       context: .
       dockerfile: ./.dockerdev/Dockerfile
       args:
-        RUBY_VERSION: '2.6.3'
+        RUBY_VERSION: '2.7.5'
         PG_MAJOR: '11'
-        NODE_MAJOR: '14'
+        NODE_MAJOR: '16'
         YARN_VERSION: '1.13.0'
-        BUNDLER_VERSION: '2.0.1'
     image: ogpreview:1.0.0
     tmpfs:
       - /tmp

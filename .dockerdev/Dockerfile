@@ -3,7 +3,6 @@ FROM ruby:$RUBY_VERSION-slim-buster
 
 ARG PG_MAJOR
 ARG NODE_MAJOR
-ARG BUNDLER_VERSION
 ARG YARN_VERSION
 
 # Common dependencies
@@ -49,10 +48,6 @@ ENV LANG=C.UTF-8 \
   BUNDLE_JOBS=4 \
   BUNDLE_RETRY=3 \
   BUNDLE_APP_CONFIG=.bundle
-
-# Upgrade RubyGems and install required Bundler version
-RUN gem update --system && \
-    gem install bundler:$BUNDLER_VERSION
 
 # Run binstubs without prefixing with `bin/` or `bundle exec`
 ENV PATH /app/bin:$PATH
