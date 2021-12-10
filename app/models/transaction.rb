@@ -2,6 +2,7 @@
 
 require 'dry/monads/do'
 
+# A Transaction is where the whole logic happens
 class Transaction
   class << self
     include Dry::Monads[:try, :result]

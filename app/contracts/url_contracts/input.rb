@@ -12,15 +12,16 @@ end
 module UrlContracts
   # Used for POST / validation only
   class Input < Dry::Validation::Contract
+    FAIL_MSG = 'Include a valid schema as http(s)://'
+    private_constant :FAIL_MSG
+
     params do
       required(:url).filled(Types::StrippedString,
                             min_size?: 4,
                             max_size?: 300) # The max shall be reviewd
     end
     rule(:url) do
-      key.failure(
-        'Include a valid schema as http(s)://'
-      ) unless values[:url].match(%r{^https?://})
+      key.failure(FAIL_MSG) unless values[:url].match(%r{^https?://})
     end
   end
 end

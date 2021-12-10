@@ -5,8 +5,7 @@ class PreviewController < ApplicationController
   before_action :assign_user_id
   before_action :url_contract, only: [:create]
 
-  def show
-  end
+  def show; end
 
   def status
     url = Url.find_by(acknowledge_id: params[:ack])
