@@ -23,6 +23,15 @@ jobs:
       - run:
           name: Which bundler?
           command: bundle -v
+  linter:
+    docker:
+      - image: 'cimg/ruby:2.7-node'
+    steps:
+      - checkout
+      - ruby/install-deps
+      - ruby/rubocop-check:
+          format: progress
+          label: Inspecting with Rubocop
 
   test:
     docker:
@@ -57,6 +66,7 @@ workflows:
   build_and_test:
     jobs:
       - build
+      - linter
       - test:
           requires:
             - build

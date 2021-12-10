@@ -65,7 +65,7 @@ class Transaction
     end
 
     # Step 04 - Attach Images
-    def attach_images(params)
+    def attach_images(params) # rubocop:disable Metrics/AbcSize, Metrics/MethodLength
       url, images = params
       url.downloading!
       images.each do |image_url|
