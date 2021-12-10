@@ -50,6 +50,7 @@ group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails', '~> 4.0.0'
   gem 'rspec_junit_formatter', '~> 0.4.1'
+  gem 'rubocop-rails', '~> 2.12.4'
 end
 
 group :development do
