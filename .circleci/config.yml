@@ -71,3 +71,4 @@ workflows:
       - test:
           requires:
             - build
+            - linter
