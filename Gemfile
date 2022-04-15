@@ -21,7 +21,7 @@ gem 'webpacker', '~> 4.0'
 gem 'turbolinks', '~> 5'
 
 # HTTP client
-gem 'http'
+gem 'http', '~> 5.0.4'
 
 # Download library
 gem 'down'
