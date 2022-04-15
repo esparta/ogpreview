@@ -24,7 +24,7 @@ gem 'turbolinks', '~> 5'
 gem 'http', '~> 5.0.4'
 
 # Download library
-gem 'down'
+gem 'down', '~> 5.3.1'
 
 # Validation library
 gem 'dry-monads', '~> 1.3.5'
@@ -61,7 +61,7 @@ end
 
 group :test do
   # Adds support for Capybara system testing and selenium driver
-  gem 'capybara', '>= 2.15'
+  gem 'capybara', '~> 3.36'
   gem 'selenium-webdriver'
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
