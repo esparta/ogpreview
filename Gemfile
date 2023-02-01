@@ -8,7 +8,7 @@ ruby '2.7.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '7.0.4.1'
 # Postgresql
-gem 'pg', '~> 1.4.3'
+gem 'pg', '~> 1.4.5'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
