@@ -31,7 +31,7 @@ gem 'dry-monads', '~> 1.3.5'
 gem 'dry-validation', '~> 1.5'
 
 # OpenGraph
-gem 'opengraph_parser', '~> 0.2.3'
+gem 'opengraph_parser', '~> 0.2.5'
 
 gem 'bootstrap',  '~>4.6.2'
 # Use Redis adapter to run Action Cable in production
