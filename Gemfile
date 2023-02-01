@@ -24,7 +24,7 @@ gem 'turbolinks', '~> 5'
 gem 'http', '~> 5.1.1'
 
 # Download library
-gem 'down', '~> 5.3.1'
+gem 'down', '~> 5.4.0'
 
 # Validation library
 gem 'dry-monads', '~> 1.3.5'
