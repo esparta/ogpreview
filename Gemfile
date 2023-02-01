@@ -8,7 +8,7 @@ ruby '2.7.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '7.0.4.1'
 # Postgresql
-gem 'pg', '~> 1.4.3'
+gem 'pg', '~> 1.4.5'
 # Use sqlite3 as the database for Active Record
 # gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
@@ -16,24 +16,24 @@ gem 'puma', '~> 5.6.5'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.4.3'
+gem 'webpacker', '~> 5.4.4'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 
 # HTTP client
-gem 'http', '~> 5.0.4'
+gem 'http', '~> 5.1.1'
 
 # Download library
-gem 'down', '~> 5.3.1'
+gem 'down', '~> 5.4.0'
 
 # Validation library
 gem 'dry-monads', '~> 1.3.5'
 gem 'dry-validation', '~> 1.5'
 
 # OpenGraph
-gem 'opengraph_parser', '~> 0.2.3'
+gem 'opengraph_parser', '~> 0.2.5'
 
-gem 'bootstrap',  '~>4.3.1'
+gem 'bootstrap',  '~>4.6.2'
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use Active Model has_secure_password
@@ -43,7 +43,7 @@ gem 'bootstrap',  '~>4.3.1'
 # gem 'image_processing', '~> 1.2'
 
 # Reduces boot times through caching; required in config/boot.rb
-gem 'bootsnap', '>= 1.4.2', require: false
+gem 'bootsnap', '>= 1.16.0', require: false
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
