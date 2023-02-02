@@ -24,7 +24,7 @@ class PreviewController < ApplicationController
   def create
     if @url_contract.success?
       url = Url.find_by(uri: @url_contract[:url])
-      ack = url&.acknowledge_id || PreviewerJob.perform_later(search_hash).job_id
+      ack = url&.acknowledge_id || PreviewerJob.perform_later(**search_hash).job_id
 
       render(json: { ack: ack })
     else
