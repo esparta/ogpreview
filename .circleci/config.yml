@@ -54,6 +54,9 @@ jobs:
       - node/install-packages:
           pkg-manager: yarn
       - run:
+          name: Webpacker
+          command: bundle exec rails webpacker:compile
+      - run:
           name: Wait for DB
           command: dockerize -wait tcp://localhost:5432 -timeout 1m
       - run:
